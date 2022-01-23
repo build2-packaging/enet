@@ -1,0 +1,5 @@
+: 1
+name: enet
+version: 1.3.17
+summary: ENet reliable UDP networking library
+license: MIT
