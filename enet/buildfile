@@ -1,0 +1,41 @@
+c.poptions += "-DENET_BUILDING_LIB" "-I$src_base/upstream/include"
+
+lib{enet}: upstream/include/h{**} upstream/c{*}
+{
+    cc.export.poptions = "-I$src_base/upstream/include"
+}
+
+if ($c.target.class == 'windows')
+{
+    objs{**}: c.poptions += "-DENET_DLL"
+    libs{enet}: cc.export.poptions += "-DENET_DLL"
+
+    if ($c.target.system == 'mingw32')
+    {
+        c.libs += "-lwinmm" "-lws2_32"
+    }
+    else
+    {
+        c.libs += "winmm.lib" "ws2_32.lib"
+    }
+}
+else
+{
+    c.poptions += \
+        "-DHAS_FCNTL" \
+        "-DHAS_POLL" \
+        "-DHAS_GETNAMEINFO" \
+        "-DHAS_GETADDRINFO" \
+        "-DHAS_GETHOSTBYNAME_R" \
+        "-DHAS_GETHOSTBYADDR_R" \
+        "-DHAS_INET_PTON" \
+        "-DHAS_INET_NTOP" \
+        "-DHAS_MSGHDR_FLAGS" \
+        "-DHAS_SOCKLEN_T"
+}
+
+upstream/include/enet/h{*}:
+{
+    install = include/enet/
+    install.subdirs = false
+}

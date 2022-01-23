@@ -1,0 +1,3 @@
+import libs = enet%lib{enet}
+
+exe{driver}: {h c}{**} $libs testscript{**}

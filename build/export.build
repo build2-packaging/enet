@@ -1,0 +1,6 @@
+$out_root/
+{
+  include enet/
+}
+
+export $out_root/enet/$import.target
